@@ -85,12 +85,115 @@
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/gEQ3yxgcUeI?si=k5WQnijebehgRqRL" title="YouTube video player" width="560"></iframe></p>
 <h3>w12_hw</h3>
 <p><span>請各組組員分別利用 </span><span>Brython 以及 Jupyter lab</span><span> 環境, 執行</span><a href="http://229.cycu.org/python_2025_lite.7z">可攜程式</a><span> notebook 目錄中的 </span><span>01_string_input_print.ipynb 至 10_for_search.ipynb</span><span> 筆記本程式, 完成後請將能在 Brython 執行的程式碼存入個人 </span><span>Gist</span><span> 後, 將各程式執行連結放入 w12_hw 網頁上. 最後請說明各範例中所使用的程式語法以及執行心得.</span></p>
-<p>解答:<a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/70ac9abd217a37e34a88d601e382553f/raw/70ecaf1d5bb1d5acb97f234dabbfc19fcae0aa59/w12.py">程式碼</a></p>
-<p></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/6_tcpu3OXI8?si=Pmf-Dg9K8Wn3ZoAO" title="YouTube video player" width="560"></iframe></p>
-<p>jupyter</p>
-<p></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/k7fwPBUkikc?si=osyRGaQIQX8Mqnhv" title="YouTube video player" width="560"></iframe></p><h1>HW 2</h1>
+<p><span>第五題:</span>05_list_index_pop_insert</p>
+<p>範例:<a href="https://gist.githubusercontent.com/41323122/f06151c764c365ae40c1369241fdc15b/raw/101ab2f63c7a969c4af5a19179626bdc3302cb4d/w12-5.py">點菜</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">todays_menu = ["burger", "salad", "coke"]                   #設定一個串列到變數裡
+print(todays_menu)                                                    #列印todays_menu變數
+side_dish_index = todays_menu.index("salad")            #使用index尋找串列裡有沒有相同的元素
+print (side_dish_index)                                               #如果有則顯示1反之顯示錯誤信息
+todays_menu.pop(side_dish_index)                             #使用index所回傳的值"1"後再利用pop刪除索引值"1"的元素
+print (todays_menu)                                                   #列印刪除元素過後的串列
+todays_menu.insert(side_dish_index, "fries")              #使用index所回傳的值"1"後再利用insert加入索引值為"1"的新元素
+print (todays_menu)                                                   #列印加入元素過後的串列</pre>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">['burger', 'salad', 'coke']
+1
+['burger', 'coke']
+['burger', 'fries', 'coke']</pre>
+<p>第六題:06_list_slicing</p>
+<p>範例:<a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/9ab2666eb326ccfa5b7e40d1045f148f/raw/99be3822ee10db191b477d6637cc97841f0590e2/w12-6.py">城市</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">cities = ["San Diego", "Prague", "Cape Town", "Tokyo", "Melbourne"]#設定一個串列
+print (cities)       #列印串列裡的元素
+print (cities[1])    #印出串列裡索引值1的元素
+print (cities[1:4])  #印出串列裡索引值1~3的元素
+print (cities[1:4:2])#印出串列裡索引值範圍1~4,間隔2的元素
+print (cities[0:3])  #印出串列裡索引值0~2的元素
+print (cities[:3])   #未設定起始索引值默認取0開始,印出串列裡索引值0~2的元素
+print (cities[2:5])  #印出串列裡索引值2~4的元素
+print (cities[2:])   #未設定末端索引值默認取到最後,印出串列裡索引值2~最後的元素
+print (cities[0:5:2])#印出串列裡索引值範圍0~4,間隔2的元素
+print (cities[::2])  #印出串列裡索引值從0開始,間隔2的元素
+print (cities[4])    #印出串列裡索引值4的元素
+print (cities[-1])   #印出串列裡索引值從後面往前數第1個的元素
+print (cities[-4:-1])#印出串列裡索引值從後面往前數第4個開始,從後面往前數第2個結束的元素
+cities[3:0:-1]       # 從索引值3（"Tokyo"）往前取值到索引值1（"Prague"），不包含索引值0，步長為-1（倒序取值）
+cities[-2:-5:-1]     # 從倒數第2個元素（"Tokyo"）往前取值到倒數第5個元素（"San Diego"），不包含倒數第5個，步長為-1
+print (cities[::-1]) # 倒序列印整個串列的元素</pre>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">['San Diego', 'Prague', 'Cape Town', 'Tokyo', 'Melbourne']
+Prague
+['Prague', 'Cape Town', 'Tokyo']
+['Prague', 'Tokyo']
+['San Diego', 'Prague', 'Cape Town']
+['San Diego', 'Prague', 'Cape Town']
+['Cape Town', 'Tokyo', 'Melbourne']
+['Cape Town', 'Tokyo', 'Melbourne']
+['San Diego', 'Cape Town', 'Melbourne']
+['San Diego', 'Cape Town', 'Melbourne']
+Melbourne
+Melbourne
+['Prague', 'Cape Town', 'Tokyo']
+['Melbourne', 'Tokyo', 'Cape Town', 'Prague', 'San Di</pre>
+<p>第七題</p>
+<p>07_list_slicing_use</p>
+<p>範例:<a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/9ab2666eb326ccfa5b7e40d1045f148f/raw/c4bd9e302c7d737e7067596db0553d6d3c07f8fe/w12-7.py">列表操作與切片範例</a></p>
+<p><span>說明:</span></p>
+<p>列表操作：包括元素替換、插入、切片、添加和刪除。</p>
+<p>切片功能：使用範圍（<code>start:end</code>）或步長（<code>start:end:step</code>）選取元素。</p>
+<p>刪除列表：<code>del</code><span> </span>可用於刪除特定元素或整個列表。</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># 定義感官列表
+senses = ["eyes", "nose", "ears", "tongue", "skin"]
+print(senses)  # 輸出: ['eyes', 'nose', 'ears', 'tongue', 'skin']
+
+# 將第二個元素 (索引1) 替換為 "smell"
+senses[1] = "smell"
+print(senses)  # 輸出: ['eyes', 'smell', 'ears', 'tongue', 'skin']
+
+# 將第四和第五個元素替換為 "taste" 和 "touch"
+senses[3:5] = ["taste", "touch"]
+print(senses)  # 輸出: ['eyes', 'smell', 'ears', 'taste', 'touch']
+
+# 使用步長切片替換第一和第三個元素
+senses[0:3:2] = ["sight", "hearing"]
+print(senses)  # 輸出: ['sight', 'smell', 'hearing', 'taste', 'touch']
+
+# 定義行星列表
+planets = ["Mercury", "Mars", "Earth", "Neptune"]
+print(planets)  # 輸出: ['Mercury', 'Mars', 'Earth', 'Neptune']
+
+# 將 "Jupiter" 添加到列表中
+planets = planets + ["Jupiter"]
+print(planets)  # 輸出: ['Mercury', 'Mars', 'Earth', 'Neptune', 'Jupiter']
+
+# 在 "Mars" 和 "Earth" 之間插入 "Venus"
+planets = planets[0:2] + ["Venus"] + planets[2:5]
+print(planets)  # 輸出: ['Mercury', 'Mars', 'Venus', 'Earth', 'Neptune', 'Jupiter']
+
+# 在 "Jupiter" 之前添加 "Uranus" 和 "Saturn"
+planets = planets[:5] + ["Uranus", "Saturn"] + planets[5:]
+print(planets)  # 輸出: ['Mercury', 'Mars', 'Venus', 'Earth', 'Neptune', 'Uranus', 'Saturn', 'Jupiter']
+
+# 定義房間列表
+house = ["kitchen", "dining room", "living room", "bedroom", "bathroom", "garden", "balcony", "terrace"]
+print(house)  # 輸出: ['kitchen', 'dining room', 'living room', 'bedroom', 'bathroom', 'garden', 'balcony', 'terrace']
+
+# 刪除第二個元素 (索引1)
+del house[1]
+print(house)  # 輸出: ['kitchen', 'living room', 'bedroom', 'bathroom', 'garden', 'balcony', 'terrace']
+
+# 刪除索引4和5的元素
+del house[4:6]
+print(house)  # 輸出: ['kitchen', 'living room', 'bedroom', 'bathroom', 'terrace']
+
+# 使用切片刪除每隔一個的元素
+del house[::2]
+print(house)  # 輸出: ['living room', 'bathroom']
+
+# 刪除整個 house 列表
+del house
+
+# 嘗試打印已刪除的列表會引發錯誤
+print(house)  # NameError: name 'house' is not defined
+</pre>
+<p><span></span></p><h1>HW 2</h1>
 <h4>主題: Python 的數列、判斷式與重複迴圈 (20%)<span style="background-color: #ffff99;"><br/></span></h4>
 <p style="padding-left: 30px;">Python 課程教材: <a href="https://www.learnpythonwithjupyter.com/">https://www.learnpythonwithjupyter.com/</a> - PART 2 and Part 3</p>
 <hr/>
