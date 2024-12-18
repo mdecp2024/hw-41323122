@@ -142,8 +142,35 @@ img.add_border {
           
         </header>
     <div id="tipue_search_content">w12_hw << <a href='w12_hw.html'>Previous</a> <a href='w14_ex.html'>Next</a> >> w14_ex<br /><h1>w13_hw</h1>
-<p><a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/757f9fd60fbdeb2c40e33ab9c9cc9b43/raw/91bc6fd6ff856af91d50fd00389d5552260e3dd6/w12.py">在下兩個正方形外圍, 以黑色畫筆畫圓, 並設法在各線條所圍成的封閉區域塗上不同顏色.</a><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/j2zg-R4U28E?si=3NM53A-_yc193wjT" title="YouTube video player" width="560"></iframe></p>
-<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import html
+<p><a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/f4624798f590262605c9dd5faee10bd2/raw/603d0e5ca50158a004641d729250a523bb266069/w13-1.py">繪製藍色斜線</a></p>
+<p><a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/f4624798f590262605c9dd5faee10bd2/raw/603d0e5ca50158a004641d729250a523bb266069/w13-1.py"><!-- 導入 brython 程式庫 --></a></p>
+<p><a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/f4624798f590262605c9dd5faee10bd2/raw/603d0e5ca50158a004641d729250a523bb266069/w13-1.py">
+<script src="./../cmsimde/static/brython.js"></script>
+<script src="./../cmsimde/static/brython_stdlib.js"></script>
+</a></p>
+<p><a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/f4624798f590262605c9dd5faee10bd2/raw/603d0e5ca50158a004641d729250a523bb266069/w13-1.py">
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
+}
+</script>
+</a></p>
+<div id="brython_div1">
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">&lt;!-- 導入 brython 程式庫 --&gt;
+&lt;p&gt;
+&lt;script src="./../cmsimde/static/brython.js"&gt;&lt;/script&gt;
+&lt;script src="./../cmsimde/static/brython_stdlib.js"&gt;&lt;/script&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;script&gt;// &lt;![CDATA[
+window.onload=function(){
+brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
+}
+// ]]&gt;&lt;/script&gt;
+&lt;/p&gt;
+&lt;div id="brython_div1"&gt;&lt;/div&gt;
+&lt;script type="text/python3"&gt;// &lt;![CDATA[
+from browser import html
 from browser import document as doc
 
 # 利用 html 建立 canvas 超文件物件
@@ -154,107 +181,144 @@ brython_div &lt;= canvas
 ctx = canvas.getContext("2d")
 ctx.lineWidth = 1
 
+
 # 2. 繪製對角線 (藍色) - 只連接第一個矩形的左上角和第一個矩形的右下角
 ctx.strokeStyle = 'blue'  # 設定對角線顏色為藍色
 ctx.beginPath()
 ctx.moveTo(100, 100)  # 起點為第一個矩形的左上角 (100, 100)
 ctx.lineTo(300, 300)  # 終點為第一個矩形的右下角 (300, 300)
 ctx.stroke()</pre>
-<p><br/><br/></p>
+</div>
+<p><a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/d84f591e25b1a68f0ed1c5c05cf55566/raw/337fccbac50a78621a9ea81879594d302a250be8/w13-2.py">在下列圖形中的兩個正方形外圍, 以黑色畫筆畫圓, 並設法在各線條所圍成的封閉區域塗上不同顏色</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import html
 from browser import document as doc
-
-# 創建畫布元素
+import math
+   
 canvas = html.CANVAS(width=500, height=500)
 brython_div = doc["brython_div1"]
 brython_div &lt;= canvas
-
-# 定義圓心中心座標和半徑
-x1, y1 = 200, 200  # 第一個圓的中心座標
-x2, y2 = 300, 300  # 第二個圓的中心座標
-radius = 141.4  # 圓的半徑
-
+   
 ctx = canvas.getContext("2d")
-
-# 繪製第一個圓 (黑色邊框)
+ctx.lineWidth = 4
+  
+#混色的
+ctx.globalCompositeOperation = "screem"
+  
+  
+#黑邊圓*2(每個畫四個邊邊)
+ctx.strokeStyle = 'black'
+#第一個圓
 ctx.beginPath()
-ctx.arc(x1, y1, radius, 0, 2 * 3.14159)
-ctx.fillStyle = "orange"  # 圓的填充顏色
+ctx.arc(160, 160, 141, 0.25 * math.pi,0.75 * math.pi)
+ctx.fillStyle = "Turquoise"
 ctx.fill()
-ctx.lineWidth = 2
-ctx.strokeStyle = "darkred"  # 圓的邊框顏色
 ctx.stroke()
-
-# 繪製第二個圓 (黑色邊框)
+  
 ctx.beginPath()
-ctx.arc(x2, y2, radius, 0, 2 * 3.14159)
-ctx.fillStyle = "mediumaquamarine"  # 圓的填充顏色
+ctx.arc(160, 160, 141, 0.75 * math.pi,1.25 * math.pi)
+ctx.fillStyle = "Tomato"
 ctx.fill()
-ctx.lineWidth = 2
-ctx.strokeStyle = "darkgreen"  # 圓的邊框顏色
 ctx.stroke()
-
-# 填充第一個和第二個圓的交集區域
-ctx.save()
+  
 ctx.beginPath()
-ctx.arc(x1, y1, radius, 0, 2 * 3.14159)
-ctx.clip()  # 剪裁到第一個圓
-ctx.beginPath()
-ctx.arc(x2, y2, radius, 0, 2 * 3.14159)
-ctx.fillStyle = "deepskyblue"
+ctx.arc(160, 160, 141, 1.25 * math.pi,1.75 * math.pi)
+ctx.fillStyle = "SpringGreen"
 ctx.fill()
-ctx.restore()
-
-# 繪製第一個正方形 (紅色邊框，紫色填充)
+ctx.stroke()
+  
 ctx.beginPath()
-ctx.rect(100, 100, 200, 200)
-ctx.fillStyle = "mediumpurple"  # 第一個正方形的填充顏色
+ctx.arc(160, 160, 141, 1.75 * math.pi,0.25 * math.pi)
+ctx.fillStyle = "FloralWhite"
 ctx.fill()
-ctx.lineWidth = 2
-ctx.strokeStyle = "crimson"  # 第一個正方形的邊框顏色
 ctx.stroke()
-
-# 繪製第二個正方形 (紅色邊框，粉色填充)
+  
+#第二個圓
 ctx.beginPath()
-ctx.rect(200, 200, 200, 200)
-ctx.fillStyle = "lightpink"  # 第二個正方形的填充顏色
+ctx.arc(260, 260, 141, 1.25 * math.pi,1.75 * math.pi)
+ctx.fillStyle = "Purple"
 ctx.fill()
-ctx.strokeStyle = "firebrick"  # 第二個正方形的邊框顏色
 ctx.stroke()
-
-# 繪製斜線 (藍色)
+  
 ctx.beginPath()
-ctx.moveTo(100, 100)
-ctx.lineTo(300, 300)
-ctx.strokeStyle = "royalblue"
-ctx.lineWidth = 2
+ctx.arc(260, 260, 141, 1.75 * math.pi,0.25 * math.pi)
+ctx.fillStyle = "OliveDrab"
+ctx.fill()
 ctx.stroke()
-
-# 繪製圓的邊框 (黑色邊框)
+  
 ctx.beginPath()
-ctx.arc(x1, y1, radius, 0, 2 * 3.14159)
-ctx.strokeStyle = "darkred"  # 圓的邊框顏色
+ctx.arc(260, 260, 141, 0.25 * math.pi,0.75 * math.pi)
+ctx.fillStyle = "Orange"
+ctx.fill()
 ctx.stroke()
-
+  
 ctx.beginPath()
-ctx.arc(x2, y2, radius, 0, 2 * 3.14159)
-ctx.strokeStyle = "darkgreen"  # 圓的邊框顏色
+ctx.arc(260, 260, 141, 0.75 * math.pi,1.25 * math.pi)
+ctx.fillStyle = "MediumVioletRed"
+ctx.fill()
 ctx.stroke()
-</pre>
+  
+  
+#紅方形*2(4個三角形)
+ctx.strokeStyle = 'Purple'
+ctx.beginPath()
+ctx.moveTo(60,60)
+ctx.lineTo(60,260)
+ctx.lineTo(260,260)
+ctx.fillStyle = "Gold"
+ctx.fill()
+ctx.stroke()
+  
+ctx.beginPath()
+ctx.moveTo(60,60)
+ctx.lineTo(260,60)
+ctx.lineTo(260,260)
+ctx.fillStyle = "Indigo"
+ctx.fill()
+ctx.stroke()
+  
+ctx.beginPath()
+ctx.moveTo(160,160)
+ctx.lineTo(360,160)
+ctx.lineTo(360,360)
+ctx.fillStyle = "Cyan"
+ctx.fill()
+ctx.stroke()
+  
+ctx.beginPath()
+ctx.moveTo(160,160)
+ctx.lineTo(160,360)
+ctx.lineTo(360,360)
+ctx.fillStyle = "CornflowerBlue"
+ctx.fill()
+ctx.stroke()
+  
+   
+#重疊的小方型
+ctx.beginPath()
+ctx.moveTo(160,160)
+ctx.lineTo(160,260)
+ctx.lineTo(260,260)
+ctx.fillStyle = "MediumOrchid"
+ctx.fill()
+ctx.stroke()
+  
+ctx.beginPath()
+ctx.moveTo(160,160)
+ctx.lineTo(260,160)
+ctx.lineTo(260,260)
+ctx.fillStyle = "SlateBlue"
+ctx.fill()
+ctx.stroke()
+  
+  
+#藍斜線
+ctx.strokeStyle = 'blue'
+ctx.beginPath() 
+ctx.moveTo(60, 60)
+ctx.lineTo(260, 260)
+ctx.stroke()</pre>
 <p></p>
-<!-- 導入 brython 程式庫 -->
 <p>
-<script src="./../cmsimde/static/brython.js"></script>
-<script src="./../cmsimde/static/brython_stdlib.js"></script>
-</p>
-<p>
-<script>
-window.onload=function(){
-brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
-}
-</script>
-</p>
-<div id="brython_div1"></div>
 <script type="text/python3">
 from browser import html
 from browser import document as doc
@@ -267,92 +331,136 @@ brython_div <= canvas
 ctx = canvas.getContext("2d")
 ctx.lineWidth = 1
 
-# 2. 繪製對角線 (藍色) - 只連接第一個矩形的左上角和第一個矩形的右下角
-ctx.strokeStyle = 'blue'  # 設定對角線顏色為藍色
-ctx.beginPath()
-ctx.moveTo(100, 100)  # 起點為第一個矩形的左上角 (100, 100)
-ctx.lineTo(300, 300)  # 終點為第一個矩形的右下角 (300, 300)
-ctx.stroke()
+
 from browser import html
 from browser import document as doc
-
-# 創建畫布元素
+import math
+   
 canvas = html.CANVAS(width=500, height=500)
 brython_div = doc["brython_div1"]
 brython_div <= canvas
-
-# 定義圓心中心座標和半徑
-x1, y1 = 200, 200  # 第一個圓的中心座標
-x2, y2 = 300, 300  # 第二個圓的中心座標
-radius = 141.4  # 圓的半徑
-
+   
 ctx = canvas.getContext("2d")
-
-# 繪製第一個圓 (黑色邊框)
+ctx.lineWidth = 4
+  
+#混色的
+ctx.globalCompositeOperation = "screem"
+  
+  
+#黑邊圓*2(每個畫四個邊邊)
+ctx.strokeStyle = 'black'
+#第一個圓
 ctx.beginPath()
-ctx.arc(x1, y1, radius, 0, 2 * 3.14159)
-ctx.fillStyle = "orange"  # 圓的填充顏色
+ctx.arc(160, 160, 141, 0.25 * math.pi,0.75 * math.pi)
+ctx.fillStyle = "Turquoise"
 ctx.fill()
-ctx.lineWidth = 2
-ctx.strokeStyle = "darkred"  # 圓的邊框顏色
 ctx.stroke()
-
-# 繪製第二個圓 (黑色邊框)
+  
 ctx.beginPath()
-ctx.arc(x2, y2, radius, 0, 2 * 3.14159)
-ctx.fillStyle = "mediumaquamarine"  # 圓的填充顏色
+ctx.arc(160, 160, 141, 0.75 * math.pi,1.25 * math.pi)
+ctx.fillStyle = "Tomato"
 ctx.fill()
-ctx.lineWidth = 2
-ctx.strokeStyle = "darkgreen"  # 圓的邊框顏色
 ctx.stroke()
-
-# 填充第一個和第二個圓的交集區域
-ctx.save()
+  
 ctx.beginPath()
-ctx.arc(x1, y1, radius, 0, 2 * 3.14159)
-ctx.clip()  # 剪裁到第一個圓
-ctx.beginPath()
-ctx.arc(x2, y2, radius, 0, 2 * 3.14159)
-ctx.fillStyle = "deepskyblue"
+ctx.arc(160, 160, 141, 1.25 * math.pi,1.75 * math.pi)
+ctx.fillStyle = "SpringGreen"
 ctx.fill()
-ctx.restore()
-
-# 繪製第一個正方形 (紅色邊框，紫色填充)
+ctx.stroke()
+  
 ctx.beginPath()
-ctx.rect(100, 100, 200, 200)
-ctx.fillStyle = "mediumpurple"  # 第一個正方形的填充顏色
+ctx.arc(160, 160, 141, 1.75 * math.pi,0.25 * math.pi)
+ctx.fillStyle = "FloralWhite"
 ctx.fill()
-ctx.lineWidth = 2
-ctx.strokeStyle = "crimson"  # 第一個正方形的邊框顏色
 ctx.stroke()
-
-# 繪製第二個正方形 (紅色邊框，粉色填充)
+  
+#第二個圓
 ctx.beginPath()
-ctx.rect(200, 200, 200, 200)
-ctx.fillStyle = "lightpink"  # 第二個正方形的填充顏色
+ctx.arc(260, 260, 141, 1.25 * math.pi,1.75 * math.pi)
+ctx.fillStyle = "Purple"
 ctx.fill()
-ctx.strokeStyle = "firebrick"  # 第二個正方形的邊框顏色
 ctx.stroke()
-
-# 繪製斜線 (藍色)
+  
 ctx.beginPath()
-ctx.moveTo(100, 100)
-ctx.lineTo(300, 300)
-ctx.strokeStyle = "royalblue"
-ctx.lineWidth = 2
+ctx.arc(260, 260, 141, 1.75 * math.pi,0.25 * math.pi)
+ctx.fillStyle = "OliveDrab"
+ctx.fill()
 ctx.stroke()
-
-# 繪製圓的邊框 (黑色邊框)
+  
 ctx.beginPath()
-ctx.arc(x1, y1, radius, 0, 2 * 3.14159)
-ctx.strokeStyle = "darkred"  # 圓的邊框顏色
+ctx.arc(260, 260, 141, 0.25 * math.pi,0.75 * math.pi)
+ctx.fillStyle = "Orange"
+ctx.fill()
 ctx.stroke()
-
+  
 ctx.beginPath()
-ctx.arc(x2, y2, radius, 0, 2 * 3.14159)
-ctx.strokeStyle = "darkgreen"  # 圓的邊框顏色
+ctx.arc(260, 260, 141, 0.75 * math.pi,1.25 * math.pi)
+ctx.fillStyle = "MediumVioletRed"
+ctx.fill()
 ctx.stroke()
-</script><br />w12_hw << <a href='w12_hw.html'>Previous</a> <a href='w14_ex.html'>Next</a> >> w14_ex</div>
+  
+  
+#紅方形*2(4個三角形)
+ctx.strokeStyle = 'Purple'
+ctx.beginPath()
+ctx.moveTo(60,60)
+ctx.lineTo(60,260)
+ctx.lineTo(260,260)
+ctx.fillStyle = "Gold"
+ctx.fill()
+ctx.stroke()
+  
+ctx.beginPath()
+ctx.moveTo(60,60)
+ctx.lineTo(260,60)
+ctx.lineTo(260,260)
+ctx.fillStyle = "Indigo"
+ctx.fill()
+ctx.stroke()
+  
+ctx.beginPath()
+ctx.moveTo(160,160)
+ctx.lineTo(360,160)
+ctx.lineTo(360,360)
+ctx.fillStyle = "Cyan"
+ctx.fill()
+ctx.stroke()
+  
+ctx.beginPath()
+ctx.moveTo(160,160)
+ctx.lineTo(160,360)
+ctx.lineTo(360,360)
+ctx.fillStyle = "CornflowerBlue"
+ctx.fill()
+ctx.stroke()
+  
+   
+#重疊的小方型
+ctx.beginPath()
+ctx.moveTo(160,160)
+ctx.lineTo(160,260)
+ctx.lineTo(260,260)
+ctx.fillStyle = "MediumOrchid"
+ctx.fill()
+ctx.stroke()
+  
+ctx.beginPath()
+ctx.moveTo(160,160)
+ctx.lineTo(260,160)
+ctx.lineTo(260,260)
+ctx.fillStyle = "SlateBlue"
+ctx.fill()
+ctx.stroke()
+  
+  
+#藍斜線
+ctx.strokeStyle = 'blue'
+ctx.beginPath() 
+ctx.moveTo(60, 60)
+ctx.lineTo(260, 260)
+ctx.stroke()
+</script>
+</p><br />w12_hw << <a href='w12_hw.html'>Previous</a> <a href='w14_ex.html'>Next</a> >> w14_ex</div>
         
     <!-- footer -->
       <div class="container">
