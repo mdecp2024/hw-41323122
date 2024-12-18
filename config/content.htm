@@ -485,7 +485,94 @@ ctx.beginPath()
 ctx.arc(x2, y2, radius, 0, 2 * 3.14159)
 ctx.strokeStyle = "darkgreen"  # 圓的邊框顏色
 ctx.stroke()
-</script><h1>HW 2</h1>
+</script><h3>w14_ex</h3>
+<p>程式:<a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/95c61939a03db0c1bf6d55058f2aa743/raw/088e157218450bcb6c9464c6bf58f5cb6cb43b44/w14.py">輸入座標畫圓</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import html
+from browser import document as doc
+import random
+import math
+
+# 定義一個函式來初始化畫布
+def initialize_canvas(canvas_width=400, canvas_height=400, id="brython_div1"):
+    """
+    初始化畫布，創建一個指定大小的 Canvas 元素，並將其加到 HTML 文件中。
+    返回畫布元素和它的 2D 繪圖上下文。
+    """
+    canvas = html.CANVAS(width=canvas_width, height=canvas_height)
+    brython_div = doc[id]  # 獲取指定 id 的 div 元素
+    brython_div &lt;= canvas  # 將 canvas 插入到該 div 中
+    
+    ctx = canvas.getContext("2d")
+    
+    return canvas, ctx
+
+# 定義一個隨機顏色生成函式
+def random_color_generator():
+    """
+    生成一個隨機的 RGB 顏色字符串。
+    """
+    r = random.randint(0, 255)  
+    g = random.randint(0, 255)  
+    b = random.randint(0, 255)  
+    return f"rgb({r}, {g}, {b})"  
+
+# 判斷點 (px, py) 是否在圓內
+def is_point_in_circle(px, py, cx, cy, r):
+    """
+    判斷一個點 (px, py) 是否位於圓 (cx, cy, r) 內。
+    """
+    return (px - cx) ** 2 + (py - cy) ** 2 &lt;= r ** 2
+
+# 使用者設定的圓心坐標和半徑，并進行塗色
+def draw_circles(circles):
+    """
+    根據傳入的圓列表，繪制圓形並使用塗色法填充區域。
+    """
+    canvas, ctx = initialize_canvas(400, 400)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    
+    color_dict = {}
+    
+    for py in range(0, canvas.height):
+        for px in range(0, canvas.width):
+            in_circles = [is_point_in_circle(px, py, cx, cy, r) for cx, cy, r in circles]
+            
+            area = None
+            if sum(in_circles) == 3:
+                area = "intersection_all"
+            elif in_circles[0] and in_circles[1]:
+                area = "intersection_1_2"
+            elif in_circles[0] and in_circles[2]:
+                area = "intersection_1_3"
+            elif in_circles[1] and in_circles[2]:
+                area = "intersection_2_3"
+            elif in_circles[0]:
+                area = "circle1"
+            elif in_circles[1]:
+                area = "circle2"
+            elif in_circles[2]:
+                area = "circle3"
+            else:
+                area = "background"
+            
+            if area not in color_dict:
+                color_dict[area] = random_color_generator() if area != "background" else "white"
+            
+            ctx.fillStyle = color_dict[area]
+            ctx.fillRect(px, py, 1, 1)
+
+# 使用者輸入圓心和半徑
+circles = []
+for i in range(3):
+    x = int(input(f"輸入圓{i+1}的x坐標: "))
+    y = int(input(f"輸入圓{i+1}的y坐標: "))
+    r = int(input(f"輸入圓{i+1}的半徑: "))
+    circles.append((x, y, r))
+
+# 呼叫畫圓函式，並繪製三個圓
+draw_circles(circles)
+</pre>
+<p></p><h1>HW 2</h1>
 <h4>主題: Python 的數列、判斷式與重複迴圈 (20%)<span style="background-color: #ffff99;"><br/></span></h4>
 <p style="padding-left: 30px;">Python 課程教材: <a href="https://www.learnpythonwithjupyter.com/">https://www.learnpythonwithjupyter.com/</a> - PART 2 and Part 3</p>
 <hr/>
