@@ -148,7 +148,7 @@ img.add_border {
 for i in range(0,101):
     sum += i
 print(sum)</pre>
-<p><span>題目二:<a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/deb10024fdba83ac94390ed35426f596/raw/0fd822a2c61efb5842abbcaa38ff26a54638064b/w15-2.py">addto</a></span></p>
+<p><span>題目二:<a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/4abbf0d751ebcad7514f5147e090aa9f/raw/aad16ef1c1c412238786ca42a673fbf4e4856e4e/w15-2.py">addto</a></span></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def addto(x,y):
   sum = 0
   for i in range(x,y+1):
@@ -156,14 +156,39 @@ print(sum)</pre>
   print(sum)
 
 addto(0,100)</pre>
-<p>題目三:<a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/6af3fef47271150862c04b989399791d/raw/2f5d50432bcf19b96e30c1354d746ab732e5da68/w15-3.py">add_only_even</a></p>
+<p>題目三:<a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/4abbf0d751ebcad7514f5147e090aa9f/raw/bb5ac3d0cc7534ef8c22cf495780d602025ff4f3/w15-3.py">add_only_even</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def add_only_even(x,y):
   sum = 0
-  for i in range(x,y+1):
+  for i in range(x+1,y+1,2):
     sum += i  
     print(sum)
-
+ 
 add_only_even(0,100)</pre>
+<p>題目四:<a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/4abbf0d751ebcad7514f5147e090aa9f/raw/16a6414dc3a22d9fba61ffe581ee20c499c90d17/w15-4.py">add_avoid_8</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def avoid8(init, addto):
+    total = 0
+    for i in range(init, addto + 1):
+        # 判斷數值中是否有 "8"
+        if "8" in str(i):
+            continue  # 跳過包含 "8" 的數字
+        total += i  # 累加不包含 "8" 的數字
+    print(total)  # 顯示最終結果
+
+# 測試函式
+avoid8(1, 100)</pre>
+<p><span></span></p>
+<p>延伸:<a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/4abbf0d751ebcad7514f5147e090aa9f/raw/6402a098ed0cded691a7462bba822675d6ba1bdd/w15-4_2.py">跳過3跟8</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def avoid8(init, addto):
+    total = 0
+    for i in range(init, addto + 1):
+        # 判斷數值中是否有 "8" 或 "3"
+        if "8" in str(i) or "3" in str(i):
+            continue  # 跳過包含 "3" 或 "8" 的數字
+        total += i
+    print(total)  # 顯示最終結果
+
+# 測試函式
+avoid8(1, 100)</pre>
 <p></p><br />w14_ex << <a href='w14_ex.html'>Previous</a> <a href='HW 2.html'>Next</a> >> HW 2</div>
         
     <!-- footer -->
