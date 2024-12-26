@@ -2,6 +2,7 @@
         <head>
         <title>cp_hw</title>
         <meta charset="utf-8">
+<meta property="head" content="H3">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap.min.css">
@@ -94,6 +95,7 @@ img.add_border {
 </head>
 <body>
 <div class='container'><nav>
+        
     <div class="site-wrap">
 
     <div class="site-mobile-menu">
@@ -139,4 +141,163 @@ img.add_border {
           </div>
           
         </header>
-    </nav><section><h1>SMap</h1><div id="tipue_search_content"></div><ul><li><a href='About.html'>About</a><li><a href='Attendance.html'>Attendance</a><li><a href='HW 1.html'>HW 1</a><ul><li><a href='HW 1 Exam.html'>HW 1 Exam</a><ul><li><a href='w7.html'>w7</a><li><a href='w10.html'>w10</a><li><a href='w11_hw.html'>w11_hw</a><li><a href='w12_hw.html'>w12_hw</a><li><a href='w13_hw.html'>w13_hw</a><li><a href='w14_ex.html'>w14_ex</a><li><a href='w15.html'>w15</a></li></li></ul></ul><li><a href='HW 2.html'>HW 2</a><ul><li><a href='HW 2 Exam.html'>HW 2 Exam</a><ul><li><a href='w16_exam1.html'>w16_exam1</a></li></li></ul></ul><li><a href='HW 3.html'>HW 3</a><ul><li><a href='HW 3 Exam.html'>HW 3 Exam</a><ul><li><a href='w9-1.html'>w9-1</a><li><a href='w9-2.html'>w9-2</a></li></li></ul></ul><li><a href='HW 4.html'>HW 4</a><ul><li><a href='HW 4 Exam.html'>HW 4 Exam</a></li></ul><li><a href='Final Report.html'>Final Report</a><li><a href='Brython.html'>Brython</a></li></ul></section></div></body></html>
+    <div id="tipue_search_content">HW 2 Exam << <a href='HW 2 Exam.html'>Previous</a> <a href='HW 3.html'>Next</a> >> HW 3<br /><h1>w16_exam1</h1>
+<p><a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/a6eaf23eef788ce4ee3268645bd6658e/raw/00ad5cf5b7b944f9a20347cc5b4b05788ba5f5f7/w16.py">anchor </a></p>
+<p><span>以</span><span>自己的學號最後四碼</span><span>作為繪圖的座標原點,  並以 pixel=2 的黑色直線分別利用 Brython 繪圖, 標示出向右為正的 X 軸, 以及向下為正的 Y 軸, 並且利用文字標示出原點座標 , 之後請自選最左側圖形的起始點座標, 直接在頁面畫出下列圖像, 繪圖程式除了必須直接列在頁面 html 檔案外, 也請存入自己的 Gist 區域, 並在所完成的圖像下方, 以自選標題的 anchor 連結至 Gist, 讓使用者點擊該連結後, 可以在各自的 Brython 頁面中繪出。</span></p>
+<p><span></span></p>
+<p><!-- 導入 brython 程式庫 --></p>
+<p>
+<script src="./../cmsimde/static/brython.js"></script>
+<script src="./../cmsimde/static/brython_stdlib.js"></script>
+</p>
+<p>
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
+}
+</script>
+</p>
+<div id="brython_div1"></div>
+<p>
+<script type="text/python3">
+from browser import html
+from browser import document as doc
+from math import pi, sin, cos, sqrt
+
+# 利用 html 建立 canvas 超文件物件
+canvas = html.CANVAS(width=900, height=300)  # 調整畫布大小
+brython_div = doc["brython_div1"]  # 確保 HTML 中有 id="brython_div1" 的元素
+brython_div <= canvas
+
+ctx = canvas.getContext("2d")
+ctx.lineWidth = 2
+ctx.strokeStyle = 'black'
+
+# 原點座標
+origin_x, origin_y = 31, 22
+pixel = 2  # 設定單位為 2 像素
+
+# 繪製 x 軸
+ctx.beginPath()
+ctx.moveTo(0, origin_y)  # x 軸起點
+ctx.lineTo(canvas.width, origin_y)  # x 軸終點
+ctx.strokeStyle = "gray"
+ctx.stroke()
+
+# 繪製 y 軸
+ctx.beginPath()
+ctx.moveTo(origin_x, 0)  # y 軸起點
+ctx.lineTo(origin_x, canvas.height)  # y 軸終點
+ctx.strokeStyle = "gray"
+ctx.stroke()
+
+# 標示原點座標
+ctx.font = "12px Arial"
+ctx.fillStyle = "black"
+ctx.fillText(f"({origin_x}, {origin_y})", origin_x + 5, origin_y - 5)
+
+# 繪製橙色六邊形（邊長為 40 像素）
+ctx.beginPath()
+for i in range(6):
+    angle = pi / 3 * i
+    x = origin_x + (40 * pixel) * cos(angle)  # 改變六邊形大小
+    y = origin_y + (40 * pixel) * sin(angle)
+    if i == 0:
+        ctx.moveTo(x + (50 * pixel), y + (50 * pixel))
+    else:
+        ctx.lineTo(x + (50 * pixel), y + (50 * pixel))
+ctx.closePath()
+ctx.fillStyle = "orange"
+ctx.fill()
+
+# 繪製綠色菱形（在六邊形的右側，距離原點約 125 像素）
+ctx.beginPath()
+ctx.moveTo(origin_x + (125 * pixel), origin_y + (15 * pixel))  # 菱形基準點
+ctx.lineTo(origin_x + (145 * pixel), origin_y + (50 * pixel))
+ctx.lineTo(origin_x + (125 * pixel), origin_y + (85 * pixel))
+ctx.lineTo(origin_x + (105 * pixel), origin_y + (50 * pixel))
+ctx.closePath()
+ctx.fillStyle = "green"
+ctx.fill()
+
+# 繪製藍色正三角形（在菱形的右側，距離原點約 150 像素）
+triangle_side = 40  # 正三角形邊長
+height = (sqrt(3) / 2) * triangle_side  # 正三角形高度
+ctx.beginPath()
+ctx.moveTo(origin_x + (150 * pixel), origin_y + (50 * pixel))  # 頂點
+ctx.lineTo(origin_x + (150 * pixel) - (triangle_side / 2) * pixel, origin_y + (50 * pixel) + (height * pixel))  # 左下頂點
+ctx.lineTo(origin_x + (150 * pixel) + (triangle_side / 2) * pixel, origin_y + (50 * pixel) + (height * pixel))  # 右下頂點
+ctx.closePath()
+ctx.fillStyle = "blue"
+ctx.fill()
+
+# 繪製粉紅色圓形（在正三角形的右側，距離原點約 200 像素）
+ctx.beginPath()
+ctx.arc(origin_x + (200 * pixel), origin_y + (50 * pixel), (20 * pixel), 0, 2 * pi)  # 圓形的中心點
+ctx.fillStyle = "magenta"
+ctx.fill()
+
+# 繪製黃色正方形（在圓形的右側，距離原點約 250 像素）
+ctx.beginPath()
+ctx.rect(origin_x + (250 * pixel), origin_y + (30 * pixel), (40 * pixel), (40 * pixel))  # 正方形的左上角
+ctx.fillStyle = "yellow"
+ctx.fill()
+
+# 繪製深藍色矩形（在正方形的右側，距離原點約 310 像素）
+ctx.beginPath()
+ctx.rect(origin_x + (310 * pixel), origin_y + (40 * pixel), (60 * pixel), (20 * pixel))  # 矩形的左上角
+ctx.fillStyle = "darkblue"
+ctx.fill()
+</script>
+</p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/mfHUACkF0kY?si=6DA6VAvqgoOZYANg" title="YouTube video player" width="560"></iframe></p><br />HW 2 Exam << <a href='HW 2 Exam.html'>Previous</a> <a href='HW 3.html'>Next</a> >> HW 3</div>
+        
+    <!-- footer -->
+      <div class="container">
+        <div class="row pt-3 mx-auto">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+      </div>
+    <!-- for footer -->
+    
+        </div> <!-- for site wrap -->
+            <!-- <script src="../cmsimde/static/chimper/js/jquery-3.3.1.min.js"></script> -->
+            <script src="../cmsimde/static/chimper/js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery-ui.js"></script>
+            <script src="../cmsimde/static/chimper/js/popper.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/owl.carousel.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.stellar.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.countdown.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.magnific-popup.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap-datepicker.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/aos.js"></script>
+            <!--
+            <script src="../cmsimde/static/chimper/js/typed.js"></script>
+                    <script>
+                    var typed = new Typed('.typed-words', {
+                    strings: ["Web Apps"," WordPress"," Mobile Apps"],
+                    typeSpeed: 80,
+                    backSpeed: 80,
+                    backDelay: 4000,
+                    startDelay: 1000,
+                    loop: true,
+                    showCursor: true
+                    });
+                    </script>
+            -->
+            <script src="../cmsimde/static/chimper/js/main.js"></script>
+        
+<!-- 啟用 LaTeX equations 編輯 -->
+  <!-- <script>
+  MathJax = {
+    tex: {inlineMath: [['$', '$'], ['\(', '\)']]}
+  };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>-->
+    </body></html>
+        
