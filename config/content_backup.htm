@@ -946,6 +946,7 @@ while True:
 sim.stopSimulation()</pre>
 <p></p>
 <h3>w16_exam2</h3>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/AEj0GUUrDPM?si=yli9QiGLDYeTvpJ6" title="YouTube video player" width="560"></iframe></p>
 <p><a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/88261d2941e3f67cc9c74ee70027c2b3/raw/d5d72ab6ecb46cc0292aac75ff006e56466f971a/w16-2.py">迷宮</a></p>
 <!-- 導入 brython 程式庫 -->
 <p>
@@ -1054,7 +1055,135 @@ main()
 <p>完成上述流程整理後, 請將 HW4 自評分數輸入 cp2024 自評表單中.</p><h2>HW 4 Exam</h2>
 <p>每六人為一組進行協同程式練習</p>
 <p>透過 Jupyterlab 協同網頁, 輪流指定各組編寫 HW 4 相關的程式練習, 以及網頁內容 (localhost 與 Codespaces 環境)編輯.</p>
-<h1>Final Report</h1>
+<h3>w16_exam3</h3>
+<p><a href="https://mdecp2024.github.io/hw-41323122/content/Brython.html?src=https://gist.githubusercontent.com/41323122/61b48a683e99eac593a4cfb132b83ffa/raw/ce3d90ef0d392c77969d3dbed69b40b2e86b5750/w16-3.py">迷宮出口</a></p>
+<!-- 導入 brython 程式庫 -->
+<p>
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+</p>
+<p>
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['/static/','./../downloads/py/']});
+}
+</script>
+</p>
+<div id="brython_div1"></div>
+<script type="text/python3">
+from browser import html
+from browser import document as doc
+
+# 利用 html 建立 canvas 超文件物件
+canvas = html.CANVAS(width=600, height=600)  # 調整畫布大小以容納圓形
+brython_div = doc["brython_div1"]
+brython_div <= canvas
+
+ctx = canvas.getContext("2d")
+ctx.lineWidth = 1
+from browser import html
+from browser import document as doc
+
+# 初始化畫布
+def create_canvas(id="brython_div1", width=550, height=550):
+    """
+    初始化畫布，並插入到指定的 HTML 容器中。
+    返回畫布及其 2D 繪圖上下文。
+    """
+    canvas = html.CANVAS(id="maze_canvas", width=width, height=height)
+    doc[id] <= canvas
+    return canvas, canvas.getContext("2d")
+
+# 繪製迷宮
+def draw_maze(ctx, origin_x=31, origin_y=22):
+    """
+    根據原點繪製迷宮，並用紅色標記起始座標。
+    """
+    # 設定起始點的標記文字（紅色）
+    ctx.font = "12px Arial"
+    ctx.fillStyle = "red"
+    ctx.fillText(f"({origin_x}, {origin_y})", origin_x + 5, origin_y - 5)
+
+    # 設定黑色線條樣式
+    ctx.strokeStyle = "black"
+    ctx.lineWidth = 2
+
+    # 定義迷宮的所有線條座標 (起點 x1, y1 到 終點 x2, y2)
+    lines = [
+        # 水平線條
+        (origin_x, origin_y, 200, origin_y),
+        (300, origin_y, 500, origin_y),
+        (150, 100, 400, 100),
+        (150, 300, 400, 300),
+        (origin_x, 500, 200, 500),
+        (300, 500, 500, 500),
+        (200, 400, 300, 400),
+        (origin_x, 200, 200, 200),
+        # 垂直線條
+        (origin_x, origin_y, origin_x, 500),
+        (500, origin_y, 500, 500),
+        (200, 100, 200, 200),
+        (400, 100, 400, 200),
+        (300, 200, 300, 300),
+        (400, 300, 400, 500),
+        (200, 400, 200, 500),
+        (150, 300, 150, 400),
+    ]
+
+    # 開始繪製線條
+    ctx.beginPath()
+    for x1, y1, x2, y2 in lines:
+        ctx.moveTo(x1, y1)
+        ctx.lineTo(x2, y2)
+    ctx.stroke()
+
+# 自動尋找出口路徑
+def find_path():
+    """
+    定義從原點自動尋找出口的路徑，避免與牆壁重疊。
+    """
+    # 手動設計的路徑，確保不與牆壁重疊
+    return [
+        (225, 0), (225, 50), (425, 50), (425, 225),
+        (320, 225), (325, 125), (225, 125), (225, 225),(75, 225),(75, 425),
+        (150, 425), (150, 325),(325, 325),(325, 425),(225, 425),(225, 500), # 出口點
+    ]
+
+# 繪製路徑
+def draw_path(ctx, path, origin_x=31, origin_y=22):
+    """
+    繪製從入口到出口的路徑。
+    """
+    ctx.strokeStyle = "red"
+    ctx.lineWidth = 2
+    ctx.beginPath()
+    for i, (x, y) in enumerate(path):
+        if i == 0:
+            ctx.moveTo(x + origin_x, y + origin_y)
+        else:
+            ctx.lineTo(x + origin_x, y + origin_y)
+    ctx.stroke()
+
+# 主程式執行
+def main():
+    """
+    主函式：負責初始化畫布，並繪製迷宮及路徑。
+    """
+    # 初始化畫布，指定大小為 550x550
+    canvas, ctx = create_canvas(width=550, height=550)
+
+    # 繪製迷宮，設定原點為 (31, 22)
+    draw_maze(ctx, origin_x=31, origin_y=22)
+
+    # 自動尋找出口的路徑
+    path = find_path()
+
+    # 繪製路徑
+    draw_path(ctx, path, origin_x=31, origin_y=22)
+
+# 執行主程式
+main()
+</script><h1>Final Report</h1>
 <p>期末口頭與書面專題報告 (20%)</p>
 <p>期末口頭專題報告影片:</p>
 <p style="padding-left: 30px;">......</p>
@@ -1066,8 +1195,7 @@ main()
 <p style="padding-left: 30px;">完成上述流程後, 請將 Final Report 自評分數輸入 cp2024 自評表單中.</p>
 <p>
 <script src="https://unpkg.com/three@0.144.0/build/three.js" type="text/javascript"></script>
-</p>
-<h1>Brython</h1>
+</p><h1>Brython</h1>
 <p>從 1 累加到 100:</p>
 <p><button id="add1to100">1 add to 100</button></p>
 <!-- 導入 brython 程式庫 -->
